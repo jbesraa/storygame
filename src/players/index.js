@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Button, TextField} from 'react-native-ui-lib';
 import {StyleSheet} from 'react-native';
+import uuid from 'react-native-uuid';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
     paddingTop: 400,
     width: '100%',
   },
-  input: {
+  inputsWrapper: {
     paddingTop: 200,
   },
   img: {
@@ -22,23 +23,61 @@ const styles = StyleSheet.create({
 });
 
 const Players = () => {
-  // const [playersNumber, setPlayersNumber] = React.useState(0);
-
+  const [players, editPlayers] = React.useState([
+    {
+      placeholder: 'Enter Player Name',
+      value: '',
+      id: uuid.v4(),
+    },
+  ]);
   const handleOnPress = () => {
     console.log('clicked');
   };
 
+  const addPlayer = () => {
+    const id = uuid.v4();
+    const newInput = {
+      placeholder: 'Enter Player Name',
+      value: '',
+      id,
+    };
+    const newState = [...players, newInput];
+    editPlayers(newState);
+  };
   return (
     <View style={styles.container}>
-      <TextField
-        style={styles.input}
-        text50
-        placeholder="Enter Player Name"
-        dark10
-      />
+      <View style={styles.inputsWrapper}>
+        {players.map((player) => {
+          const {value, placeholder, id} = player;
+          return (
+            <TextField
+              key={id}
+              text50
+              placeholder={placeholder}
+              dark10
+              onChangeText={(text, identifier = id) => {
+                const newState = players.map((p) => {
+                  const {id: pId} = player;
+                  if (pId === identifier) {
+                    return {
+                      name: text,
+                      ...p,
+                    };
+                  }
+                  return p;
+                });
+                editPlayers(newState);
+              }}
+              value={value}
+            />
+          );
+        })}
+      </View>
+
       <Button
         label="Add More Players"
         style={styles.btn}
+        onPress={addPlayer}
         bg-primaryColor
         square
       />

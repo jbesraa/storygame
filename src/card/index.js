@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Button} from 'react-native-ui-lib';
 
 import {View, Text, Image, StyleSheet} from 'react-native';
@@ -30,9 +30,9 @@ const styles = StyleSheet.create({
 });
 
 const Card = () => {
-  const [visitedCards, setVisitedCards] = React.useState([]);
-  const [currentCard, setCurrentCard] = React.useState({name: '', imgURL: ''});
-  const [notVisitedCards, setNotVisitedCards] = React.useState([...CardsData]);
+  const [visitedCards, setVisitedCards] = useState([]);
+  const [currentCard, setCurrentCard] = useState({name: '', imgURL: ''});
+  const [notVisitedCards, setNotVisitedCards] = useState([...CardsData]);
 
   const handleOnPress = () => {
     const cardsDataCount = notVisitedCards.length;
@@ -40,12 +40,12 @@ const Card = () => {
       return;
     }
     const randomNumber = randomInteger(0, cardsDataCount - 1);
-
     const {id, name, imgURL} = notVisitedCards[randomNumber];
     setCurrentCard({name, imgURL});
     setVisitedCards([...visitedCards, {id}]);
     setNotVisitedCards(notVisitedCards.filter((c, i) => i !== randomNumber));
   };
+
   return (
     <View>
       {currentCard.name ? (

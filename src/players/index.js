@@ -1,28 +1,31 @@
 import React from 'react';
+import {Navigation} from 'react-native-navigation';
 import {View, Button, TextField} from 'react-native-ui-lib';
 import {StyleSheet} from 'react-native';
 import uuid from 'react-native-uuid';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#ef767a',
+    display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 50,
-  },
-  btnWrapper: {
-    paddingTop: 400,
-    width: '100%',
+    padding: '10%',
+    paddingTop: '40%',
+    height: '100%',
   },
   inputsWrapper: {
-    paddingTop: 200,
+    flex: 5,
+    width: '90%',
   },
-  img: {
-    width: '10%',
-    height: '5%',
+  btnWrapper: {
+    flex: 1,
+    width: '90%',
   },
+  input: {},
 });
 
-const Players = () => {
+const Players = (props) => {
   const [players, editPlayers] = React.useState([
     {
       placeholder: 'Enter Player Name',
@@ -30,8 +33,13 @@ const Players = () => {
       id: uuid.v4(),
     },
   ]);
+
   const handleOnPress = () => {
-    console.log('clicked');
+    Navigation.push(props.componentId, {
+      component: {
+        name: 'Card', // Push the screen registered with the 'Settings' key
+      },
+    });
   };
 
   const addPlayer = () => {
@@ -44,6 +52,21 @@ const Players = () => {
     const newState = [...players, newInput];
     editPlayers(newState);
   };
+
+  const updatePlayerName = (text, id) => {
+    const newState = players.map((p) => {
+      const {id: pId} = p;
+      if (pId === id) {
+        return {
+          name: text,
+          ...p,
+        };
+      }
+      return p;
+    });
+    editPlayers(newState);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.inputsWrapper}>
@@ -52,43 +75,28 @@ const Players = () => {
           return (
             <TextField
               key={id}
+              style={styles.input}
               text50
               placeholder={placeholder}
               dark10
-              onChangeText={(text, identifier = id) => {
-                const newState = players.map((p) => {
-                  const {id: pId} = player;
-                  if (pId === identifier) {
-                    return {
-                      name: text,
-                      ...p,
-                    };
-                  }
-                  return p;
-                });
-                editPlayers(newState);
-              }}
+              onChangeText={(text, identifier = id) =>
+                updatePlayerName(text, identifier)
+              }
               value={value}
             />
           );
         })}
       </View>
-
-      <Button
-        label="Add More Players"
-        style={styles.btn}
-        onPress={addPlayer}
-        bg-primaryColor
-        square
-      />
-      <View style={styles.btnWrapper}>
+      {/* <View style={styles.btnWrapper}>
         <Button
-          label="Start Storying"
-          style={styles.btn}
-          onPress={handleOnPress}
+          label="Add More Players"
+          onPress={addPlayer}
           bg-primaryColor
           square
         />
+      </View> */}
+      <View style={styles.btnWrapper}>
+        <Button label="Start " onPress={handleOnPress} bg-grey square />
       </View>
     </View>
   );

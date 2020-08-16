@@ -1,22 +1,9 @@
-import {Navigation} from 'react-native-navigation';
-import Players from './src/players';
-import Card from './src/card';
+/**
+ * @format
+ */
+import 'react-native-gesture-handler';
+import {AppRegistry} from 'react-native';
+import App from './src/App';
+import {name as appName} from './app.json';
 
-Navigation.registerComponent('Players', () => Players);
-Navigation.registerComponent('Card', () => Card);
-
-Navigation.events().registerAppLaunchedListener(async () => {
-  Navigation.setRoot({
-    root: {
-      stack: {
-        children: [
-          {
-            component: {
-              name: 'Players',
-            },
-          },
-        ],
-      },
-    },
-  });
-});
+AppRegistry.registerComponent(appName, () => App);

@@ -4,6 +4,7 @@ import {Button} from 'react-native-ui-lib';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {randomInteger} from '../utils';
 import CardsData from '../data';
+import {PlayersContext} from '../global';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,11 +30,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const Card = () => {
+const Card = (props) => {
+  console.log('Card -> props', props);
   const [visitedCards, setVisitedCards] = useState([]);
   const [currentCard, setCurrentCard] = useState({name: '', imgURL: ''});
   const [notVisitedCards, setNotVisitedCards] = useState([...CardsData]);
-
+  const value = React.useContext(PlayersContext);
+  console.log('Card -> value', value);
   const handleOnPress = () => {
     const cardsDataCount = notVisitedCards.length;
     if (cardsDataCount < 1) {

@@ -2,11 +2,11 @@ import React, {useState} from 'react';
 import {View, Button, TextField} from 'react-native-ui-lib';
 import {StyleSheet} from 'react-native';
 
-const Players = (props) => {
+const Players = ({navigation}) => {
   const [playerName, setPlayerName] = useState('');
 
   const handleOnPress = () => {
-    console.log('handleonpress');
+    navigation.navigate('Cards');
   };
 
   return (

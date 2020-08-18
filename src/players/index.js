@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import PropTypes from 'prop-types';
+import React from 'react';
 import {View, Button, TextField} from 'react-native-ui-lib';
 import {StyleSheet} from 'react-native';
 
 const Players = ({navigation}) => {
-  const [playerName, setPlayerName] = useState('');
-
+  const [playerName, setPlayerName] = React.useState('');
   const handleOnPress = () => {
     navigation.navigate('Cards');
   };
@@ -32,6 +32,9 @@ const Players = ({navigation}) => {
   );
 };
 
+Players.propTypes = {
+  navigation: PropTypes.object,
+};
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ef767a',

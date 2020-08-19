@@ -1,10 +1,10 @@
+import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {Button} from 'react-native-ui-lib';
 
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {randomInteger} from '../utils';
 import CardsData from '../data';
-import {PlayersContext} from '../global';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,13 +30,17 @@ const styles = StyleSheet.create({
   },
 });
 
-const Card = (props) => {
-  console.log('Card -> props', props);
+const Cards = (props) => {
+  const {
+    route: {
+      params: {playerName},
+    },
+  } = props;
+
   const [visitedCards, setVisitedCards] = useState([]);
-  const [currentCard, setCurrentCard] = useState({name: '', imgURL: ''});
   const [notVisitedCards, setNotVisitedCards] = useState([...CardsData]);
-  const value = React.useContext(PlayersContext);
-  console.log('Card -> value', value);
+  const [currentCard, setCurrentCard] = useState({name: '', imgURL: ''});
+
   const handleOnPress = () => {
     const cardsDataCount = notVisitedCards.length;
     if (cardsDataCount < 1) {
@@ -51,6 +55,7 @@ const Card = (props) => {
 
   return (
     <View>
+      <Text style={styles.text}>{playerName}</Text>
       {currentCard.name ? (
         <Text style={styles.text}>{currentCard.name}</Text>
       ) : null}
@@ -79,4 +84,8 @@ const Card = (props) => {
   );
 };
 
-export default Card;
+Cards.propTypes = {
+  route: PropTypes.object,
+};
+
+export default Cards;

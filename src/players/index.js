@@ -6,7 +6,7 @@ import {StyleSheet} from 'react-native';
 const Players = ({navigation}) => {
   const [playerName, setPlayerName] = React.useState('');
   const handleOnPress = () => {
-    navigation.navigate('Cards');
+    navigation.navigate('Cards', {playerName});
   };
 
   return (

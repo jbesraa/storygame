@@ -8,13 +8,22 @@ import CardsData from '../data';
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 50,
+    backgroundColor: '#d54062',
+    height: '100%',
   },
   img: {
     width: '50%',
     height: '40%',
+  },
+  imgContainer: {
+    display: 'flex',
+    alignContent: 'center',
+    alignItems: 'center',
+  },
+  textContainer: {
+    display: 'flex',
+    alignContent: 'center',
+    alignItems: 'center',
   },
   text: {
     paddingBottom: 30,
@@ -23,7 +32,7 @@ const styles = StyleSheet.create({
   btnWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 100,
+    paddingTop: 200,
   },
   btn: {
     width: '50%',
@@ -46,6 +55,7 @@ const Cards = (props) => {
     if (cardsDataCount < 1) {
       return;
     }
+
     const randomNumber = randomInteger(0, cardsDataCount - 1);
     const {id, name, imgURL} = notVisitedCards[randomNumber];
     setCurrentCard({name, imgURL});
@@ -54,20 +64,22 @@ const Cards = (props) => {
   };
 
   return (
-    <View>
-      <Text style={styles.text}>{playerName}</Text>
-      {currentCard.name ? (
-        <Text style={styles.text}>{currentCard.name}</Text>
-      ) : null}
-      {currentCard.imgURL ? (
-        <Image
-          style={styles.img}
-          source={{
-            uri: `${currentCard.imgURL}`,
-          }}
-        />
-      ) : null}
+    <View style={styles.container}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{playerName}</Text>
 
+        <Text style={styles.text}>{currentCard.name || ''}</Text>
+      </View>
+      <View style={styles.imgContainer}>
+        {currentCard.imgURL ? (
+          <Image
+            style={styles.img}
+            source={{
+              uri: `${currentCard.imgURL}`,
+            }}
+          />
+        ) : null}
+      </View>
       <View>
         <View style={styles.btnWrapper}>
           <Button

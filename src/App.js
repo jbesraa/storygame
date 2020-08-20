@@ -8,6 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {store} from './redux';
 
 export const PlayersContext = React.createContext('');
+
 const Stack = createStackNavigator();
 
 const App = () => {
@@ -19,7 +20,7 @@ const App = () => {
             name="Landing"
             component={LandingPage}
             options={{
-              title: 'Home Page',
+              title: '',
               headerStyle: {
                 backgroundColor: '#ffaa71',
                 borderBottomColor: '#ffaa71',
@@ -33,7 +34,7 @@ const App = () => {
             name="Players"
             component={Players}
             options={{
-              title: 'Home Page',
+              title: '',
               headerStyle: {
                 backgroundColor: '#ef767a',
                 borderBottomColor: '#ef767a',
@@ -43,7 +44,20 @@ const App = () => {
               },
             }}
           />
-          <Stack.Screen name="Cards" component={Cards} />
+          <Stack.Screen
+            name="Cards"
+            component={Cards}
+            options={{
+              title: '',
+              headerStyle: {
+                backgroundColor: '#d54062',
+                borderBottomColor: '#d54062',
+              },
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

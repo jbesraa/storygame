@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {View, Button, Text} from 'react-native-ui-lib';
+import {View, Button} from 'react-native-ui-lib';
 import {StyleSheet} from 'react-native';
+import Title from './title';
 
 const LandingPage = ({navigation}) => {
   const handleOnPress = () => {
@@ -10,11 +11,7 @@ const LandingPage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Tell</Text>
-      </View>
-      <Text style={styles.title}>The</Text>
-      <Text style={styles.title}>Story</Text>
+      <Title />
       <View style={styles.btnWrapper}>
         <Button label="Start" onPress={handleOnPress} bg-grey square />
       </View>

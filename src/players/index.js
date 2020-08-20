@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import {View, Button, TextField} from 'react-native-ui-lib';
-import {StyleSheet} from 'react-native';
+import {View, Button} from 'react-native-ui-lib';
+import {StyleSheet, Text, TextInput} from 'react-native';
+import Title from '../title';
 
 const Players = ({navigation}) => {
   const [playerName, setPlayerName] = React.useState('');
@@ -11,15 +12,15 @@ const Players = ({navigation}) => {
 
   return (
     <View style={styles.container}>
+      <Title />
       <View style={styles.inputsWrapper}>
-        <TextField
+        <Text style={styles.text}>Players:</Text>
+        <TextInput
           style={styles.input}
-          text50
-          placeholder={'player name'}
-          dark10
+          placeholder={'number'}
+          numeric
+          keyboardType={'numeric'}
           onChangeText={(text) => {
-            console.log('playername', playerName);
-            console.log('text', text);
             setPlayerName(text);
           }}
           value={playerName}
@@ -35,25 +36,33 @@ const Players = ({navigation}) => {
 Players.propTypes = {
   navigation: PropTypes.object,
 };
+
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ef767a',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: '10%',
     height: '100%',
   },
   inputsWrapper: {
-    flex: 5,
+    display: 'flex',
+    flexDirection: 'row',
     width: '90%',
     paddingTop: '20%',
   },
   btnWrapper: {
     flex: 1,
+    paddingTop: '40%',
     width: '90%',
   },
-  input: {},
+  input: {
+    width: '40%',
+    paddingLeft: 20,
+    fontSize: 30,
+  },
+  text: {
+    fontSize: 40,
+    fontWeight: '700',
+  },
 });
 
 export default Players;

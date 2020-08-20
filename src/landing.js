@@ -10,7 +10,11 @@ const LandingPage = ({navigation}) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tell Your Story</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.title}>Tell</Text>
+      </View>
+      <Text style={styles.title}>The</Text>
+      <Text style={styles.title}>Story</Text>
       <View style={styles.btnWrapper}>
         <Button label="Start" onPress={handleOnPress} bg-grey square />
       </View>
@@ -25,19 +29,20 @@ LandingPage.propTypes = {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#ffaa71',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: '10%',
     height: '100%',
   },
   btnWrapper: {
-    flex: 1,
     width: '90%',
-    paddingTop: 500,
+    display: 'flex',
+    paddingTop: 300,
+  },
+  titleContainer: {
+    display: 'flex',
   },
   title: {
-    fontSize: 24,
+    fontSize: 64,
+    fontWeight: 'bold',
   },
 });
 

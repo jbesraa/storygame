@@ -29,7 +29,20 @@ const App = () => {
               },
             }}
           />
-          <Stack.Screen name="Players" component={Players} />
+          <Stack.Screen
+            name="Players"
+            component={Players}
+            options={{
+              title: 'Home Page',
+              headerStyle: {
+                backgroundColor: '#ef767a',
+                borderBottomColor: '#ef767a',
+              },
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
           <Stack.Screen name="Cards" component={Cards} />
         </Stack.Navigator>
       </NavigationContainer>

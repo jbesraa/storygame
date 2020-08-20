@@ -15,7 +15,20 @@ const App = () => {
     <Provider store={store}>
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Landing" component={LandingPage} />
+          <Stack.Screen
+            name="Landing"
+            component={LandingPage}
+            options={{
+              title: 'Home Page',
+              headerStyle: {
+                backgroundColor: '#ffaa71',
+                borderBottomColor: '#ffaa71',
+              },
+              headerTitleStyle: {
+                fontWeight: 'bold',
+              },
+            }}
+          />
           <Stack.Screen name="Players" component={Players} />
           <Stack.Screen name="Cards" component={Cards} />
         </Stack.Navigator>

@@ -5,9 +5,9 @@ import {StyleSheet, Text, TextInput} from 'react-native';
 import Title from '../title';
 
 const Players = ({navigation}) => {
-  const [playerName, setPlayerName] = React.useState('');
+  const [playersNumber, setPlayersNumber] = React.useState('');
   const handleOnPress = () => {
-    navigation.navigate('Cards', {playerName});
+    navigation.navigate('Cards', {playersNumber});
   };
 
   return (
@@ -21,13 +21,19 @@ const Players = ({navigation}) => {
           numeric
           keyboardType={'numeric'}
           onChangeText={(text) => {
-            setPlayerName(text);
+            setPlayersNumber(text);
           }}
-          value={playerName}
+          value={playersNumber}
         />
       </View>
       <View style={styles.btnWrapper}>
-        <Button label="Start " onPress={handleOnPress} bg-grey square />
+        <Button
+          label="Start"
+          disabled={playersNumber < 1}
+          onPress={handleOnPress}
+          bg-grey
+          square
+        />
       </View>
     </View>
   );
@@ -95,7 +101,7 @@ export default Players;
 //     id: uuid.v4(),
 //   },
 // ]);
-// const updatePlayerName = (text, id) => {
+// const updateplayersNumber = (text, id) => {
 //   const newState = players.map((p) => {
 //     const {id: pId} = p;
 //     if (pId === id) {

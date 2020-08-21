@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
 const Cards = (props) => {
   const {
     route: {
-      params: {playerName},
+      params: {playersNumber},
     },
   } = props;
 
@@ -66,7 +66,7 @@ const Cards = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{playerName}</Text>
+        <Text style={styles.text}>{playersNumber}</Text>
 
         <Text style={styles.text}>{currentCard.name || ''}</Text>
       </View>

@@ -3,11 +3,23 @@ import React from 'react';
 import {View, Button} from 'react-native-ui-lib';
 import {StyleSheet, Text, TextInput} from 'react-native';
 import Title from '../title';
+import createPlayer from '../createPlayer';
+
+const getPlayers = (num) => {
+  const players = [];
+  for (let i = 0; i < num; i++) {
+    const p = createPlayer();
+    players.push(p);
+  }
+
+  return players;
+};
 
 const Players = ({navigation}) => {
   const [playersNumber, setPlayersNumber] = React.useState('');
   const handleOnPress = () => {
-    navigation.navigate('Cards', {playersNumber});
+    const players = getPlayers(playersNumber);
+    navigation.navigate('Cards', {players});
   };
 
   return (

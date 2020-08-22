@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useState} from 'react';
 import {Button} from 'react-native-ui-lib';
-
 import {View, Text, Image, StyleSheet} from 'react-native';
-import {randomInteger} from '../utils';
-import CardsData from '../data';
 
 const styles = StyleSheet.create({
   container: {
@@ -42,43 +39,32 @@ const styles = StyleSheet.create({
 const Cards = (props) => {
   const {
     route: {
-      params: {playersNumber},
+      params: {players},
     },
   } = props;
+  const numberOfPlayers = players.length - 1;
+  const turns = 1;
+  const [playerTurn, setPlayerTurn] = useState(numberOfPlayers);
+  const [cardTurn, setCardTurn] = useState(turns);
 
-  const [visitedCards, setVisitedCards] = useState([]);
-  const [notVisitedCards, setNotVisitedCards] = useState([...CardsData]);
-  const [currentCard, setCurrentCard] = useState({name: '', imgURL: ''});
+  const {cards, name} = players[playerTurn];
 
-  const handleOnPress = () => {
-    const cardsDataCount = notVisitedCards.length;
-    if (cardsDataCount < 1) {
-      return;
-    }
-
-    const randomNumber = randomInteger(0, cardsDataCount - 1);
-    const {id, name, imgURL} = notVisitedCards[randomNumber];
-    setCurrentCard({name, imgURL});
-    setVisitedCards([...visitedCards, {id}]);
-    setNotVisitedCards(notVisitedCards.filter((c, i) => i !== randomNumber));
-  };
+  const currentCard = cards[cardTurn];
 
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{playersNumber}</Text>
+        <Text style={styles.text}>{name}</Text>
 
-        <Text style={styles.text}>{currentCard.name || ''}</Text>
+        <Text style={styles.text}>{currentCard.name}</Text>
       </View>
       <View style={styles.imgContainer}>
-        {currentCard.imgURL ? (
-          <Image
-            style={styles.img}
-            source={{
-              uri: `${currentCard.imgURL}`,
-            }}
-          />
-        ) : null}
+        <Image
+          style={styles.img}
+          source={{
+            uri: `${currentCard.imgURL}`,
+          }}
+        />
       </View>
       <View>
         <View style={styles.btnWrapper}>
@@ -86,7 +72,7 @@ const Cards = (props) => {
             label="Roll The Dice"
             style={styles.btn}
             body
-            onPress={handleOnPress}
+            onPress={() => {}}
             bg-primaryColor
             square
           />

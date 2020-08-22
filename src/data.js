@@ -1,4 +1,4 @@
-const CardsData = [
+const cardsData = [
   {
     id: 'CAT',
     name: 'Cat',
@@ -23,4 +23,4 @@ const CardsData = [
   },
 ];
 
-export default CardsData;
+export default cardsData;

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React from 'react';
 import {Button} from 'react-native-ui-lib';
 import {View, Text, Image, StyleSheet} from 'react-native';
 
@@ -36,35 +36,82 @@ const styles = StyleSheet.create({
   },
 });
 
+const turns = 2;
+
+const handleTurn = ({players, currentPlayerIndex, currentCardIndex}) => {
+  const numberOfPlayers = players.length - 1;
+  // end of game
+  if (
+    currentPlayerIndex === numberOfPlayers &&
+    currentCardIndex === turns - 1
+  ) {
+    return {newPlayerIndex: currentPlayerIndex, newCardIndex: currentCardIndex};
+  }
+
+  // new round
+  if (currentPlayerIndex === numberOfPlayers) {
+    return {newPlayerIndex: 0, newCardIndex: currentCardIndex + 1};
+  }
+
+  // iterate in round
+  return {
+    newPlayerIndex: currentPlayerIndex + 1,
+    newCardIndex: currentCardIndex,
+  };
+};
+
 const Cards = (props) => {
   const {
     route: {
       params: {players},
     },
   } = props;
-  const numberOfPlayers = players.length - 1;
-  const turns = 1;
-  const [playerTurn, setPlayerTurn] = useState(numberOfPlayers);
-  const [cardTurn, setCardTurn] = useState(turns);
+  const [state, setState] = React.useState({
+    playerIndex: 0,
+    cardIndex: 0,
+    currentCard: {name: '', imgURL: ''},
+    currentPlayer: {name: '', cards: []},
+  });
 
-  const {cards, name} = players[playerTurn];
+  const getNextPlayer = () => {
+    const {cardIndex, playerIndex} = state;
+    const {newPlayerIndex, newCardIndex} = handleTurn({
+      players,
+      currentCardIndex: cardIndex,
+      currentPlayerIndex: playerIndex,
+    });
+    setState({
+      ...state,
+      playerIndex: newPlayerIndex,
+      cardIndex: newCardIndex,
+    });
+  };
 
-  const currentCard = cards[cardTurn];
+  React.useEffect(() => {
+    const {cards, name} = players[state.playerIndex];
+    setState({
+      ...state,
+      currentCard: cards[state.cardIndex],
+      currentPlayer: {cards, name},
+    });
+  }, [state.playerIndex, state.cardIndex]);
 
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{name}</Text>
+        <Text style={styles.text}>{state.currentPlayer.name}</Text>
 
-        <Text style={styles.text}>{currentCard.name}</Text>
+        <Text style={styles.text}>{state.currentCard.name}</Text>
       </View>
       <View style={styles.imgContainer}>
-        <Image
-          style={styles.img}
-          source={{
-            uri: `${currentCard.imgURL}`,
-          }}
-        />
+        {state.currentCard.imgURL ? (
+          <Image
+            style={styles.img}
+            source={{
+              uri: `${state.currentCard.imgURL}`,
+            }}
+          />
+        ) : null}
       </View>
       <View>
         <View style={styles.btnWrapper}>
@@ -72,7 +119,7 @@ const Cards = (props) => {
             label="Roll The Dice"
             style={styles.btn}
             body
-            onPress={() => {}}
+            onPress={getNextPlayer}
             bg-primaryColor
             square
           />

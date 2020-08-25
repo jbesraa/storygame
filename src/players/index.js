@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Button} from 'react-native-ui-lib';
 import {StyleSheet, Text, TextInput} from 'react-native';
 import Title from '../title';
-import createPlayer from '../createPlayer';
+import {createPlayer} from '../utils';
 
 const getPlayers = (num) => {
   const players = [];

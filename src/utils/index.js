@@ -1,6 +1,7 @@
 import cardsData from '../data';
 
 export const playersNames = ['Coko', 'Moma', 'Yanky', 'Goyo', 'Lopa', 'Lufi'];
+
 export const turns = 2;
 
 export const handleTurn = ({players, currentPlayerIndex, currentCardIndex}) => {
@@ -25,26 +26,32 @@ export const handleTurn = ({players, currentPlayerIndex, currentCardIndex}) => {
   };
 };
 
-const playerCards = () => {
+const generatePlayerCards = (data = cardsData) => {
   const cards = [];
   for (let i = 0; i < turns; i++) {
-    const random = randomInteger(0, 3);
-    const data = cardsData[random];
-    cards.push(data);
+    const random = randomInteger(0, data.length);
+    cards.push(data[random]);
   }
 
   return cards;
 };
 
-export const createPlayer = (list = playersNames) => {
-  const random = randomInteger(0, 5);
-  const name = list[random];
-  const cards = playerCards();
-
+const generatePlayer = ({name, cards} = {}) => {
   return {
-    name,
-    cards,
+    name: name || '',
+    cards: cards || [],
   };
+};
+
+export const createPlayer = (list = playersNames) => {
+  const player = generatePlayer();
+  if (list.length > 0) {
+    const randomNameIndex = randomInteger(0, list.length);
+    player.name = list[randomNameIndex];
+    player.cards = generatePlayerCards();
+  }
+
+  return player;
 };
 
 export const randomInteger = (min, max) => {

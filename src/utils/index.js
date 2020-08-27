@@ -1,6 +1,6 @@
 import cardsData from '../data';
 
-const playersNames = ['Coko', 'Moma', 'Yanky', 'Goyo', 'Lopa', 'Lufi'];
+export const playersNames = ['Coko', 'Moma', 'Yanky', 'Goyo', 'Lopa', 'Lufi'];
 export const turns = 2;
 
 export const handleTurn = ({players, currentPlayerIndex, currentCardIndex}) => {

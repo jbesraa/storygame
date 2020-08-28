@@ -9,13 +9,13 @@ describe('playerNames', () => {
 describe('createPlayer', () => {
   test('creates player successfuly', () => {
     const names = ['testme'];
-    const result = createPlayer(names);
+    const result = createPlayer({list: names, pIndex: 0, rounds: 2});
     expect(result.name).toEqual('testme');
   });
 
   test('returns empty name and cards array for no names list', () => {
     const names = [];
-    const result = createPlayer(names);
+    const result = createPlayer({list: names, pIndex: 0});
     expect(result.name).toEqual('');
   });
 });

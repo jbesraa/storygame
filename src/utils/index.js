@@ -61,6 +61,10 @@ const playerInstance = ({name, cards} = {}) => {
 
 export const createPlayer = ({list = playersNames, pIndex, rounds} = {}) => {
   const player = playerInstance();
+  const noPlayerNames = !list.length;
+  if (noPlayerNames) {
+    return player;
+  }
   if (list.length > 0) {
     player.name = list[pIndex];
     player.cards = createRandomCards({rounds});

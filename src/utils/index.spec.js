@@ -1,4 +1,4 @@
-import {createPlayer, playersNames} from './index';
+import {handleRounds, createPlayer, playersNames} from './index';
 
 describe('playerNames', () => {
   test('player names has the correct length', () => {
@@ -16,5 +16,86 @@ describe('createPlayer', () => {
     const names = [];
     const result = createPlayer(names);
     expect(result.name).toEqual('');
+  });
+});
+
+describe('handleRounds', () => {
+  test('handles 0 rounds', () => {
+    const numberOfPlayers = 2;
+    const currentCardIndex = 0;
+    const currentPlayerIndex = 0;
+    const rounds = 0;
+
+    const result = handleRounds({
+      numberOfPlayers,
+      currentPlayerIndex,
+      currentCardIndex,
+      rounds,
+    });
+    expect(result.newPlayerIndex).toEqual(currentPlayerIndex);
+    expect(result.newCardIndex).toEqual(currentCardIndex);
+  });
+
+  test('handles 0 players', () => {
+    const numberOfPlayers = 0;
+    const currentCardIndex = 2;
+    const currentPlayerIndex = 3;
+    const rounds = 5;
+
+    const result = handleRounds({
+      numberOfPlayers,
+      currentPlayerIndex,
+      currentCardIndex,
+      rounds,
+    });
+    expect(result.newPlayerIndex).toEqual(currentPlayerIndex);
+    expect(result.newCardIndex).toEqual(currentCardIndex);
+  });
+
+  test('iterate in round', () => {
+    const numberOfPlayers = 3;
+    const currentCardIndex = 2;
+    const currentPlayerIndex = 1;
+    const rounds = 5;
+
+    const result = handleRounds({
+      numberOfPlayers,
+      currentPlayerIndex,
+      currentCardIndex,
+      rounds,
+    });
+    expect(result.newPlayerIndex).toEqual(currentPlayerIndex + 1);
+    expect(result.newCardIndex).toEqual(currentCardIndex);
+  });
+
+  test('next round', () => {
+    const numberOfPlayers = 3;
+    const currentCardIndex = 2;
+    const currentPlayerIndex = 3;
+    const rounds = 5;
+
+    const result = handleRounds({
+      numberOfPlayers,
+      currentPlayerIndex,
+      currentCardIndex,
+      rounds,
+    });
+    expect(result.newPlayerIndex).toEqual(0);
+    expect(result.newCardIndex).toEqual(currentCardIndex + 1);
+  });
+  test('end of game', () => {
+    const numberOfPlayers = 3;
+    const currentCardIndex = 1;
+    const currentPlayerIndex = 3;
+    const rounds = 2;
+
+    const result = handleRounds({
+      numberOfPlayers,
+      currentPlayerIndex,
+      currentCardIndex,
+      rounds,
+    });
+    expect(result.newPlayerIndex).toEqual(currentPlayerIndex);
+    expect(result.newCardIndex).toEqual(currentCardIndex);
   });
 });

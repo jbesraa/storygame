@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Button} from 'react-native-ui-lib';
 import {View, Text, Image} from 'react-native';
-import {handleTurn} from '../utils';
+import {handleRounds} from '../utils';
 import styles from './styles';
 
 const Cards = (props) => {
@@ -20,8 +20,8 @@ const Cards = (props) => {
 
   const getNextPlayer = () => {
     const {cardIndex, playerIndex} = state;
-    const {newPlayerIndex, newCardIndex} = handleTurn({
-      players,
+    const {newPlayerIndex, newCardIndex} = handleRounds({
+      numberOfPlayers: players.length - 1,
       currentCardIndex: cardIndex,
       currentPlayerIndex: playerIndex,
     });
@@ -44,8 +44,12 @@ const Cards = (props) => {
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{state.currentPlayer.name}</Text>
-        <Text style={styles.text}>{state.currentCard.name}</Text>
+        <Text style={styles.text}>
+          {state.currentPlayer && state.currentPlayer.name}
+        </Text>
+        <Text style={styles.text}>
+          {state.currentCard && state.currentCard.name}
+        </Text>
       </View>
       <View style={styles.imgContainer}>
         {state.currentCard.imgURL ? (

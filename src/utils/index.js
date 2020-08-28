@@ -37,10 +37,15 @@ export const handleRounds = ({
   return result;
 };
 
-const createRandomCards = ({data = cardsData, length = turns} = {}) => {
+const createRandomCards = ({data = cardsData, rounds} = {}) => {
   const cards = [];
-  for (let i = 0; i < length; i++) {
-    const random = randomInteger(0, data.length);
+  const used = [];
+  for (let i = 0; i < rounds; i++) {
+    let random = randomInteger(0, rounds);
+    while (used.indexOf(random) > -1) {
+      random = randomInteger(0, rounds);
+    }
+    used.push(random);
     cards.push(data[random]);
   }
 
@@ -54,12 +59,11 @@ const playerInstance = ({name, cards} = {}) => {
   };
 };
 
-export const createPlayer = (list = playersNames) => {
+export const createPlayer = ({list = playersNames, pIndex, rounds} = {}) => {
   const player = playerInstance();
   if (list.length > 0) {
-    const randomNameIndex = randomInteger(0, list.length);
-    player.name = list[randomNameIndex];
-    player.cards = createRandomCards();
+    player.name = list[pIndex];
+    player.cards = createRandomCards({rounds});
   }
 
   return player;

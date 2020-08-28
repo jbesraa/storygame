@@ -12,6 +12,7 @@ describe('createPlayer', () => {
     const result = createPlayer(names);
     expect(result.name).toEqual('testme');
   });
+
   test('returns empty name and cards array for no names list', () => {
     const names = [];
     const result = createPlayer(names);

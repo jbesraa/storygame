@@ -1,41 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import {Button} from 'react-native-ui-lib';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {handleTurn} from '../utils';
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#d54062',
-    height: '100%',
-  },
-  img: {
-    width: '50%',
-    height: '40%',
-  },
-  imgContainer: {
-    display: 'flex',
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  textContainer: {
-    display: 'flex',
-    alignContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
-    paddingBottom: 30,
-    fontSize: 28,
-  },
-  btnWrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: 200,
-  },
-  btn: {
-    width: '50%',
-  },
-});
+import styles from './styles';
 
 const Cards = (props) => {
   const {

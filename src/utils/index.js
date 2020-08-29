@@ -73,5 +73,21 @@ export const createPlayer = ({list = playersNames, pIndex, rounds} = {}) => {
   return player;
 };
 
+export const generateUniquePlayers = ({numOfPlayers}) => {
+  const players = [];
+  const used = [];
+  for (let i = 0; i < numOfPlayers; i++) {
+    let randomNameIndex = randomInteger(0, playersNames.length - 1);
+    while (used.indexOf(randomNameIndex) !== -1) {
+      randomNameIndex = randomInteger(0, playersNames.length - 1);
+    }
+    const p = createPlayer({rounds: 2, pIndex: randomNameIndex});
+    used.push(randomNameIndex);
+    players.push(p);
+  }
+
+  return players;
+};
+
 export const randomInteger = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;

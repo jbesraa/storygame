@@ -3,29 +3,13 @@ import React from 'react';
 import {View, Button} from 'react-native-ui-lib';
 import {Text, TextInput} from 'react-native';
 import Title from '../title';
-import {createPlayer, randomInteger, playersNames} from '../utils';
+import {generateUniquePlayers} from '../utils';
 import styles from './styles';
-
-const getPlayers = (num) => {
-  const players = [];
-  const used = [];
-  for (let i = 0; i < num; i++) {
-    let randomNameIndex = randomInteger(0, playersNames.length - 1);
-    while (used.indexOf(randomNameIndex) !== -1) {
-      randomNameIndex = randomInteger(0, playersNames.length - 1);
-    }
-    const p = createPlayer({rounds: 2, pIndex: randomNameIndex});
-    used.push(randomNameIndex);
-    players.push(p);
-  }
-
-  return players;
-};
 
 const Players = ({navigation}) => {
   const [playersNumber, setPlayersNumber] = React.useState('');
   const handleOnPress = () => {
-    const players = getPlayers(playersNumber);
+    const players = generateUniquePlayers({numOfPlayers: playersNumber});
     navigation.navigate('Cards', {players});
   };
 
@@ -61,4 +45,5 @@ const Players = ({navigation}) => {
 Players.propTypes = {
   navigation: PropTypes.object,
 };
+
 export default Players;

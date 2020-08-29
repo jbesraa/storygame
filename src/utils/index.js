@@ -59,29 +59,33 @@ const playerInstance = ({name, cards} = {}) => {
   };
 };
 
-export const createPlayer = ({list = playersNames, pIndex, rounds} = {}) => {
+export const createPlayer = ({
+  namesList = playersNames,
+  pIndex,
+  rounds,
+} = {}) => {
   const player = playerInstance();
-  const noPlayerNames = !list.length;
-  if (noPlayerNames) {
+  const namesListLength = namesList.length;
+  if (!namesListLength) {
     return player;
   }
-  if (list.length > 0) {
-    player.name = list[pIndex];
+  if (namesListLength > 0) {
+    player.name = namesList[pIndex];
     player.cards = createRandomCards({rounds});
   }
 
   return player;
 };
 
-export const generateUniquePlayers = ({numOfPlayers}) => {
+export const generateUniquePlayers = ({namesList, numOfPlayers}) => {
   const players = [];
   const used = [];
   for (let i = 0; i < numOfPlayers; i++) {
-    let randomNameIndex = randomInteger(0, playersNames.length - 1);
+    let randomNameIndex = randomInteger(0, namesList.length - 1);
     while (used.indexOf(randomNameIndex) !== -1) {
-      randomNameIndex = randomInteger(0, playersNames.length - 1);
+      randomNameIndex = randomInteger(0, namesList.length - 1);
     }
-    const p = createPlayer({rounds: 2, pIndex: randomNameIndex});
+    const p = createPlayer({namesList, rounds: 2, pIndex: randomNameIndex});
     used.push(randomNameIndex);
     players.push(p);
   }

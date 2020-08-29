@@ -1,4 +1,9 @@
-import {handleRounds, createPlayer, playersNames} from './index';
+import {
+  handleRounds,
+  createPlayer,
+  playersNames,
+  generateUniquePlayers,
+} from './index';
 
 describe('playerNames', () => {
   test('player names has the correct length', () => {
@@ -9,13 +14,13 @@ describe('playerNames', () => {
 describe('createPlayer', () => {
   test('creates player successfuly', () => {
     const names = ['testme'];
-    const result = createPlayer({list: names, pIndex: 0, rounds: 2});
+    const result = createPlayer({namesList: names, pIndex: 0, rounds: 2});
     expect(result.name).toEqual('testme');
   });
 
   test('returns empty name and cards array for no names list', () => {
     const names = [];
-    const result = createPlayer({list: names, pIndex: 0});
+    const result = createPlayer({namesList: names, pIndex: 0});
     expect(result.name).toEqual('');
   });
 });
@@ -98,5 +103,19 @@ describe('handleRounds', () => {
     });
     expect(result.newPlayerIndex).toEqual(currentPlayerIndex);
     expect(result.newCardIndex).toEqual(currentCardIndex);
+  });
+});
+
+describe('generateUniquePlayers', () => {
+  test('generates unique players successfully', () => {
+    const namesList = ['p1', 'p2', 'p3', 'p4', 'p5'];
+    const numOfPlayers = 5;
+    const result = generateUniquePlayers({namesList, numOfPlayers});
+    const names = result.map((p) => p.name);
+    expect(names.indexOf(namesList[0]) > -1).toBeTruthy();
+    expect(names.indexOf(namesList[1]) > -1).toBeTruthy();
+    expect(names.indexOf(namesList[2]) > -1).toBeTruthy();
+    expect(names.indexOf(namesList[3]) > -1).toBeTruthy();
+    expect(names.indexOf(namesList[4]) > -1).toBeTruthy();
   });
 });

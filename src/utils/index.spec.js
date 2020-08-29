@@ -130,7 +130,6 @@ describe('generateRandomCards', () => {
     ];
     const rounds = 3;
     const result = generateRandomCards({data, rounds});
-    console.log('result', result);
     const names = result.map((p) => p.name);
     expect(names.indexOf(data[0].name) > -1).toBeTruthy();
     expect(names.indexOf(data[1].name) > -1).toBeTruthy();

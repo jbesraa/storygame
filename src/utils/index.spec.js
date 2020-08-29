@@ -3,6 +3,7 @@ import {
   createPlayer,
   playersNames,
   generateUniquePlayers,
+  generateRandomCards,
 } from './index';
 
 describe('playerNames', () => {
@@ -117,5 +118,22 @@ describe('generateUniquePlayers', () => {
     expect(names.indexOf(namesList[2]) > -1).toBeTruthy();
     expect(names.indexOf(namesList[3]) > -1).toBeTruthy();
     expect(names.indexOf(namesList[4]) > -1).toBeTruthy();
+  });
+});
+
+describe('generateRandomCards', () => {
+  test('generates unique players successfully', () => {
+    const data = [
+      {id: 'id0', name: 'name0', imgURL: 'img0'},
+      {id: 'id1', name: 'name1', imgURL: 'img1'},
+      {id: 'id2', name: 'name2', imgURL: 'img2'},
+    ];
+    const rounds = 3;
+    const result = generateRandomCards({data, rounds});
+    console.log('result', result);
+    const names = result.map((p) => p.name);
+    expect(names.indexOf(data[0].name) > -1).toBeTruthy();
+    expect(names.indexOf(data[1].name) > -1).toBeTruthy();
+    expect(names.indexOf(data[2].name) > -1).toBeTruthy();
   });
 });

@@ -65,7 +65,7 @@ export const createPlayer = ({
   rounds,
 } = {}) => {
   const player = playerInstance();
-  const namesListLength = namesList.length;
+  const namesListLength = Array.isArray(namesList) && namesList.length;
   if (!namesListLength) {
     return player;
   }
@@ -77,7 +77,7 @@ export const createPlayer = ({
   return player;
 };
 
-export const generateUniquePlayers = ({namesList, numOfPlayers}) => {
+export const generateUniquePlayers = ({namesList = playersNames, numOfPlayers}) => {
   const players = [];
   const used = [];
   for (let i = 0; i < numOfPlayers; i++) {

@@ -1,28 +1,13 @@
 import {
   handleRounds,
-  createPlayer,
   playersNames,
   generateUniquePlayers,
-  generateRandomCards,
 } from './index';
+import cardsData from '../data';
 
 describe('playerNames', () => {
   test('player names has the correct length', () => {
     expect(playersNames).toHaveLength(6);
-  });
-});
-
-describe('createPlayer', () => {
-  test('creates player successfuly', () => {
-    const names = ['testme'];
-    const result = createPlayer({namesList: names, pIndex: 0, rounds: 2});
-    expect(result.name).toEqual('testme');
-  });
-
-  test('returns empty name and cards array for no names list', () => {
-    const names = [];
-    const result = createPlayer({namesList: names, pIndex: 0});
-    expect(result.name).toEqual('');
   });
 });
 
@@ -109,30 +94,14 @@ describe('handleRounds', () => {
 
 describe('generateUniquePlayers', () => {
   test('generates unique players successfully', () => {
-    const namesList = ['p1', 'p2', 'p3', 'p4', 'p5'];
-    const numOfPlayers = 5;
-    const result = generateUniquePlayers({namesList, numOfPlayers});
-    const names = result.map((p) => p.name);
-    expect(names.indexOf(namesList[0]) > -1).toBeTruthy();
-    expect(names.indexOf(namesList[1]) > -1).toBeTruthy();
-    expect(names.indexOf(namesList[2]) > -1).toBeTruthy();
-    expect(names.indexOf(namesList[3]) > -1).toBeTruthy();
-    expect(names.indexOf(namesList[4]) > -1).toBeTruthy();
-  });
-});
-
-describe('generateRandomCards', () => {
-  test('generates unique players successfully', () => {
-    const data = [
-      {id: 'id0', name: 'name0', imgURL: 'img0'},
-      {id: 'id1', name: 'name1', imgURL: 'img1'},
-      {id: 'id2', name: 'name2', imgURL: 'img2'},
-    ];
-    const rounds = 3;
-    const result = generateRandomCards({data, rounds});
-    const names = result.map((p) => p.name);
-    expect(names.indexOf(data[0].name) > -1).toBeTruthy();
-    expect(names.indexOf(data[1].name) > -1).toBeTruthy();
-    expect(names.indexOf(data[2].name) > -1).toBeTruthy();
+    const namesList = ['p1', 'p2', 'p3', 'p4', 'p5', 'p6'].sort();
+    const numOfPlayers = 6;
+    const rounds = 2;
+    const inputCardsId = cardsData.map(c => c.id).sort();
+    const result = generateUniquePlayers({namesList,rounds, cardsData, numOfPlayers});
+    const names = result.map((p) => p.name).sort();
+    const cardsId = [].concat.apply([], result.map((p) => p.cards)).map(c => c.id).sort();
+    expect(cardsId).toEqual(inputCardsId);
+    expect(names).toEqual(namesList);
   });
 });

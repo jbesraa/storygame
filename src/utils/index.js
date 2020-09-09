@@ -37,57 +37,81 @@ export const handleRounds = ({
   return result;
 };
 
-export const generateRandomCards = ({data = cardsData, rounds} = {}) => {
-  const cards = [];
+const uniqueNumbers = (count) => {
+  const result = [];
   const used = [];
-  for (let i = 0; i < rounds; i++) {
-    let random = randomInteger(0, rounds - 1);
-    while (used.indexOf(random) > -1) {
-      random = randomInteger(0, rounds - 1);
+  for(let i =0;i <count;i++) {
+    let random = randomInteger(0,count -1);
+    while(used.indexOf(random) > -1){
+      random = randomInteger(0, count -1);
     }
     used.push(random);
-    cards.push(data[random]);
+    result.push(random);
+  }
+  return result;
+};
+
+const createPlayerCards = ({data = cardsData, indexes} = {}) => {
+  const cards = [];
+  for (let i = 0; i < indexes.length; i++) {
+    const index = indexes[i];
+    cards.push(data[index]);
   }
 
   return cards;
 };
 
-const playerInstance = ({name, cards} = {}) => {
+const playerInstance = ({id, name, cards} = {}) => {
   return {
+    id: id,
     name: name || '',
     cards: cards || [],
   };
 };
 
-export const createPlayer = ({
-  namesList = playersNames,
-  pIndex,
-  rounds,
-} = {}) => {
-  const player = playerInstance();
+
+const createPlayerName = ({namesList, index}) => {
   const namesListLength = Array.isArray(namesList) && namesList.length;
-  if (!namesListLength) {
-    return player;
-  }
-  if (namesListLength > 0) {
-    player.name = namesList[pIndex];
-    player.cards = generateRandomCards({rounds});
+  if(!namesListLength) {
+    return '';
   }
 
+  let result = namesList[index];
+
+  return result;
+};
+
+const createPlayer = ({
+  playerId
+} = {}) => {
+  let  pId= playerId ;
+  const player = playerInstance({id : pId});
   return player;
 };
 
-export const generateUniquePlayers = ({namesList = playersNames, numOfPlayers}) => {
+export const generateUniquePlayers = 
+  ({namesList = playersNames, cardsList = cardsData, numOfPlayers, rounds = turns}) => {
+  if(numOfPlayers < 0 ){
+    return [];
+  }
   const players = [];
-  const used = [];
-  for (let i = 0; i < numOfPlayers; i++) {
-    let randomNameIndex = randomInteger(0, namesList.length - 1);
-    while (used.indexOf(randomNameIndex) !== -1) {
-      randomNameIndex = randomInteger(0, namesList.length - 1);
-    }
-    const p = createPlayer({namesList, rounds: 2, pIndex: randomNameIndex});
-    used.push(randomNameIndex);
-    players.push(p);
+  const playersId = uniqueNumbers(numOfPlayers);
+  const playersCardsIndexes = uniqueNumbers(numOfPlayers*rounds);
+  let playerCards = {start:0, end: rounds};
+  for (let i = 0; i < playersId.length; i++) {
+    const playerId = playersId[i];
+
+    const player = createPlayer({playerId});
+
+    player.name = createPlayerName({namesList, index:player.id});
+
+    const {start, end} = playerCards;
+    const indexes = playersCardsIndexes.slice(start,end);
+    player.cards = createPlayerCards({data: cardsList, indexes });
+    playerCards.start = start + rounds;
+    playerCards.end = end + rounds;
+
+    players.push(player);
   }
 
   return players;

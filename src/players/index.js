@@ -10,8 +10,6 @@ const Players = ({navigation}) => {
   const [playersNumber, setPlayersNumber] = React.useState('');
   const handleOnPress = () => {
     const players = generateUniquePlayers({numOfPlayers: playersNumber});
-    const cards = players.map(p => p.cards);
-    console.log('handleOnPress -> cards', cards);
     navigation.navigate('Cards', {players});
   };
 

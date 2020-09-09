@@ -1,3 +1,4 @@
+
 const cardsData = [
   {
     id: 'CAT',
@@ -22,8 +23,8 @@ const cardsData = [
     imgURL: 'https://scx1.b-cdn.net/csz/news/800/2019/canwereallyk.jpg',
   },
   {
-    id: 'not CAt',
-    name: 'not Cat',
+    id: 'no CAt',
+    name: 'no Cat',
     imgURL: 'https://ichef.bbci.co.uk/images/ic/1200x675/p049tgdb.jpg',
   },
   {
@@ -41,6 +42,28 @@ const cardsData = [
   {
     id: 'not MONKEY',
     name: 'not Monkey',
+    imgURL: 'https://scx1.b-cdn.net/csz/news/800/2019/canwereallyk.jpg',
+  }
+  ,{
+    id: 'yes CAt',
+    name: 'yes Cat',
+    imgURL: 'https://ichef.bbci.co.uk/images/ic/1200x675/p049tgdb.jpg',
+  },
+  {
+    id: 'yes ZEBRA',
+    name: 'yes Zebra',
+    imgURL:
+      'https://www.peta.org/wp-content/uploads/2017/03/iStock-157381164_freder.jpg',
+  },
+  {
+    id: 'yes CAMEL',
+    name: 'yes Camels',
+    imgURL:
+      'https://cdn.britannica.com/s:900x675/80/140480-131-28E57753/Dromedary-camels.jpg',
+  },
+  {
+    id: 'yes MONKEY',
+    name: 'yes Monkey',
     imgURL: 'https://scx1.b-cdn.net/csz/news/800/2019/canwereallyk.jpg',
   }
 ];

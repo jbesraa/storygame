@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, {useEffect} from 'react';
 import {Provider} from 'react-redux';
 import Players from './players';
 import Cards from './cards';
@@ -10,18 +10,18 @@ import {store} from './redux';
 
 const ENDPOINT = 'http://127.0.0.1:8080';
 
-
 export const PlayersContext = React.createContext('');
 
 const Stack = createStackNavigator();
 
 const App = () => {
-
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
-    socket.on('FromAPI', data => {
-      console.log('data',data);
+    socket.on('FromAPI', (data) => {
+      console.log('data', data);
     });
+
+    return () => socket.disconnect();
   }, []);
 
   return (

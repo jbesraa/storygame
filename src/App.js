@@ -1,17 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {Provider} from 'react-redux';
 import Players from './players';
 import Cards from './cards';
 import LandingPage from './landing';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import socketIOClient from 'socket.io-client';
 import {store} from './redux';
+
+const ENDPOINT = 'http://127.0.0.1:8080';
+
 
 export const PlayersContext = React.createContext('');
 
 const Stack = createStackNavigator();
 
 const App = () => {
+
+  useEffect(() => {
+    const socket = socketIOClient(ENDPOINT);
+    socket.on('FromAPI', data => {
+      console.log('data',data);
+    });
+  }, []);
+
   return (
     <Provider store={store}>
       <NavigationContainer>

@@ -17,8 +17,11 @@ const Stack = createStackNavigator();
 const App = () => {
   useEffect(() => {
     const socket = socketIOClient(ENDPOINT);
-    socket.on('FromAPI', (data) => {
-      console.log('data', data);
+    socket.on('connect',  () => {
+        socket.emit('room', 'r1');
+      });
+    socket.once('message', message => {
+      console.log('message',message);
     });
 
     return () => socket.disconnect();
